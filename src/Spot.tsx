@@ -6,16 +6,17 @@ import { AbsoluteNumbers } from './helper/absolute-numbers';
 import { Changes } from './helper/changes';
 import { DataInspector } from './helper/data-inspector';
 import { Styles } from './helper/styles';
+import { SpotOptions } from './types/spot-options';
 
-export const Spot: React.FC<PanelProps> = ({ width, height, data }) => {
+export const Spot: React.FC<PanelProps<SpotOptions>> = ({ width, height, data, options }) => {
   const wrapperStyle = {
     width: `${width}px`,
     height: `${height}px`,
   };
 
-  const totalTarget = DataInspector.getTarget('total', data.request);
-  const totalStatus = DataInspector.getStatus(totalTarget);
-  const trendDirection = DataInspector.getTrendDirection(totalStatus);
+  const status = options.status;
+
+  const trendDirection = DataInspector.getTrendDirection(status);
 
   const total = AbsoluteNumbers.getTotal(data.series, 'total');
   const previous = AbsoluteNumbers.getTotal(data.series, 'previous');
